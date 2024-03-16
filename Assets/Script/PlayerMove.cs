@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float jumpStrenght = 3f; //сила стрибка
     private Rigidbody2D rb2d; //посилання на фізику об'єкта
     private bool isJump = false; //чи можу я стрибати
+    public GameObject deathParticle;//система частинок для програшу
 
     void Start()
     {
@@ -31,6 +32,13 @@ public class PlayerMove : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isJump = true;
+        }
+        else if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            GameObject part = Instantiate(deathParticle, 
+                transform.position, Quaternion.identity);
+            Destroy(part, 0.5f);
+            Destroy(gameObject);
         }
     }
 
