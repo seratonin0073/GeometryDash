@@ -10,6 +10,9 @@ public class PlayerMove : MonoBehaviour
     private bool isJump = false; //чи можу я стрибати
     public GameObject deathParticle;//система частинок для програшу
 
+    public float rotateSpeed = 2;//швидкість обертання
+    private float rotateZ = 0.0f;//поточний кут
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -23,6 +26,7 @@ public class PlayerMove : MonoBehaviour
         {
             rb2d.AddForce(Vector2.up * jumpStrenght, ForceMode2D.Impulse);
             isJump = false;
+            transform.GetChild(0).eulerAngles = new Vector3(0, 0, rotateZ -= 90f);
         }
         
     } 
@@ -38,6 +42,7 @@ public class PlayerMove : MonoBehaviour
             GameObject part = Instantiate(deathParticle, 
                 transform.position, Quaternion.identity);
             Destroy(part, 0.5f);
+            Application.LoadLevel(0);
             Destroy(gameObject);
         }
     }
