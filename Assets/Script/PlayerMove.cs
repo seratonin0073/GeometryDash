@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 3f; //швидкість руху
@@ -44,6 +45,11 @@ public class PlayerMove : MonoBehaviour
             Destroy(part, 0.5f);
             Application.LoadLevel(0);
             Destroy(gameObject);
+        }
+        else if(collision.gameObject.CompareTag("Finish"))
+        {
+            GameObject.Find("GameManager").
+                GetComponent<GameManager>().isLevelComplete = true;
         }
     }
 
